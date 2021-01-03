@@ -1,25 +1,14 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useContext } from 'react';
 import './TodoList.css';
+import { TodoListContext } from "../../context/TodoListContext";
 import TodoItem from '../../components/TodoItem'
 import { useHistory } from 'react-router-dom'
-
-const sampleTodoList = [
-  {
-    id: 0,
-    title: 'これはサンプル１です',
-    description: 'これはサンプル１です',
-  },
-  {
-    id: 1,
-    title: 'これはサンプル２です',
-    description: 'これはサンプル２です',
-  }
-];
 
 const TodoList = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [todoList, setTodoList] = useState(sampleTodoList);
+  const {todoList, setTodoList} = useContext(TodoListContext);
+
   const history = useHistory();
 
   const changedTitle = (e) => {
@@ -31,7 +20,13 @@ const TodoList = () => {
   }
 
   const clickedButton = () => {
-    const newId = Math.max(...todoList.map((todo)=>todo.id)) + 1;
+
+    let newId = 0;
+
+    if (todoList.length > 0) {
+      newId = Math.max(...todoList.map((todo)=>todo.id)) + 1;
+    }
+    
     const newTodoList = todoList.slice();
     const newTodo = {
       id: newId,

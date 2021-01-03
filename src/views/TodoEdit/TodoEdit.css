@@ -1,0 +1,10 @@
+.todo-title-input {
+  line-height: 20px;
+  width: 500px;
+  margin: 6px 0;
+}
+
+.todo-description-input {
+  width: 500px;
+  margin: 0 0 6px 0;
+}
