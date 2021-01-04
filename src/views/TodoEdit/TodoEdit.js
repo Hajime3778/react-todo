@@ -21,6 +21,7 @@ const TodoEdit = () => {
   }
 
   const clickedSave = () => {
+    if (title === '' && description === '') return;
     const newTodoList = todoList.slice();
     newTodoList.forEach((todo) => {
       if(todo.id === id) {
