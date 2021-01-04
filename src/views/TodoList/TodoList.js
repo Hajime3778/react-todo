@@ -20,13 +20,8 @@ const TodoList = () => {
   }
 
   const clickedButton = () => {
+    const newId = todoList.length > 0 ? Math.max(...todoList.map((todo)=>todo.id)) + 1 : 0
 
-    let newId = 0;
-
-    if (todoList.length > 0) {
-      newId = Math.max(...todoList.map((todo)=>todo.id)) + 1;
-    }
-    
     const newTodoList = todoList.slice();
     const newTodo = {
       id: newId,
