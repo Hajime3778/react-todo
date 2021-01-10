@@ -14,7 +14,7 @@ const TodoList = () => {
 
   useEffect(() => {
     const getTodoList = async () => {
-      const response = await axios.get('https://api-creator.tk/react-lesson/todos');
+      const response = await axios.get('todos');
       setTodoList(response.data);
     };
     getTodoList();
@@ -38,7 +38,7 @@ const TodoList = () => {
       description: description,
     };
 
-    await axios.post('https://api-creator.tk/react-lesson/todos', newTodo);
+    await axios.post('todos', newTodo);
 
     newTodoList.push(newTodo);
     setTodoList(newTodoList);
