@@ -1,5 +1,6 @@
-import { Fragment, useState, useContext } from 'react';
+import { Fragment, useEffect, useState, useContext } from 'react';
 import './TodoList.css';
+import axios from 'axios'
 import { TodoListContext } from "../../context/TodoListContext";
 import TodoItem from '../../components/TodoItem'
 import { useHistory } from 'react-router-dom'
@@ -11,6 +12,14 @@ const TodoList = () => {
 
   const history = useHistory();
 
+  useEffect(() => {
+    const getTodoList = async () => {
+      const response = await axios.get('https://api-creator.tk/react-lesson/todos');
+      setTodoList(response.data);
+    };
+    getTodoList();
+  }, [setTodoList]);
+
   const changedTitle = (e) => {
     setTitle(e.target.value);
   }
@@ -19,7 +28,7 @@ const TodoList = () => {
     setDescription(e.target.value);
   }
 
-  const clickedButton = () => {
+  const clickedButton = async () => {
     if (title === '' && description === '') return;
     const newId = todoList.length > 0 ? Math.max(...todoList.map((todo)=>todo.id)) + 1 : 0;
     const newTodoList = todoList.slice();
@@ -28,6 +37,9 @@ const TodoList = () => {
       title: title,
       description: description,
     };
+
+    await axios.post('https://api-creator.tk/react-lesson/todos', newTodo);
+
     newTodoList.push(newTodo);
     setTodoList(newTodoList);
     setTitle('');
