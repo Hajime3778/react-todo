@@ -1,6 +1,6 @@
 module.exports = {
-  mode: 'production',
-  entry: './src/index.js',
+  mode: 'development',
+  entry: './src/index.ts',
   output: {
     filename: 'main.js',
   },
@@ -13,6 +13,14 @@ module.exports = {
     publicPath: '/',
   },
   resolve: {
-    extensions: ['.js'],
+    extensions: ['.ts', '.js'],
   },
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: [{ loader: 'ts-loader' }],
+      },
+   ],
+ },
 };
